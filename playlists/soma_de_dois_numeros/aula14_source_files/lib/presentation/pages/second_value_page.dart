@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:soma_de_dois_valores/common/common_functions.dart';
 import 'package:soma_de_dois_valores/presentation/pages/sum_result_page.dart';
 
 class SecondValuePage extends StatelessWidget {
+  static const routeName = '/second';
+
+  final String firstValue;
+
+  SecondValuePage({@required this.firstValue});
+
   String _secondValue = '';
 
   @override
@@ -18,7 +25,15 @@ class SecondValuePage extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Padding(
               padding: const EdgeInsets.only(top: 16.0),
-              child: Text('Você informou N como primeiro valor'),
+              child: Text(
+                'Você informou $firstValue como primeiro valor',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.abel(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red[900],
+                ),
+              ),
             ),
           ),
           Align(
@@ -41,7 +56,7 @@ class SecondValuePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                onChanged: (value) => _firstValue = value,
+                onChanged: (value) => _secondValue = value,
               ),
             ),
           ),
@@ -52,12 +67,8 @@ class SecondValuePage extends StatelessWidget {
           if (_secondValue.isEmpty)
             return valueRequiredDialog(context: context);
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SumResultPage(),
-            ),
-          );
+          Navigator.of(context).pushNamed(SumResultPage.routeName,
+              arguments: [firstValue, _secondValue]);
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,

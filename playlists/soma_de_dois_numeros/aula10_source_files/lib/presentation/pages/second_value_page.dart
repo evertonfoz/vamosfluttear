@@ -47,6 +47,7 @@ class SecondValuePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                onChanged: (value) => _firstValue = value,
               ),
             ),
           ),
